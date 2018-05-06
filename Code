@@ -1,0 +1,71 @@
+ #include <Servo.h>
+
+char inByte;
+
+Servo servo1;
+
+int cur_angle = 0;
+int angle = 0;
+
+void setup() {
+  Serial.begin(9600);
+  servo1.attach(4);
+  
+  // put your setup code here, to run once:
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (Serial.available() > 0){
+    inByte = Serial.read();
+    cur_angle = angle;
+    switch(inByte){
+    case '1':
+      angle = 1;
+      break;
+    case '2':
+      angle = 2;
+      break;
+     case '3':
+      angle = 3;
+      break;
+     case '4':
+      angle = 4;
+      break;
+     case '5':
+      angle = 5;
+      break;
+     case '6':
+      angle = 6;
+      break;
+     case '7':
+      angle = 7;
+      break;
+     case '8':
+      angle = 8;
+      break;
+     case '9':
+      angle = 9;
+      break;
+     case '0':
+      angle = 0;   
+    }
+    angle = angle*20;
+    if(cur_angle<angle)
+    {
+      for(int i = cur_angle; i <angle; i++ )
+      {
+        servo1.write(i);
+        delay(10);
+      }
+    }
+    else
+    {
+      for(int i = cur_angle; i > angle; i--)
+      {
+        servo1.write(i);
+        delay(10);
+      }
+    }
+  }
+}
